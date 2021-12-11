@@ -1,0 +1,16 @@
+{
+  "name": "cypress-test-nested-projects",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test-foo && npm run test-bar && npm run test-smoke",
+    "test-foo": "cypress run --project ./src/clients/foo",
+    "test-bar": "cypress run --project $PWD/src/clients/bar",
+    "test-smoke": "cypress run --project ./src/clients/bar --config-file cypress-smoke.json"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cypress": "9.1.1"
+  }
+}
