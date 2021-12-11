@@ -1,0 +1,9 @@
+{
+  "integrationFolder": "cypress/src/smoke",
+  "fixturesFolder": "cypress/src/fixtures",
+  "pluginsFile": "cypress/src/plugins/index.js",
+  "screenshotsFolder": "cypress/src/screenshots",
+  "supportFile": "cypress/src/support/index.js",
+  "videosFolder": "cypress/src/videos",
+  "$schema": "https://on.cypress.io/cypress.schema.json"
+}
