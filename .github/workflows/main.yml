@@ -12,6 +12,5 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           start: npm run test
-          wait-on: "http://0.0.0.0:3001"
         env:
           DEV_SERVER_PORT: 3001
