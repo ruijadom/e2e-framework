@@ -1,26 +1,24 @@
-name: E2E
-on: push
+name: Cypress Tests with installation job
+
+on: [push]
+
 jobs:
-  cypress-run:
+  install:
     runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          node: [ '12', '14', '16' ]
-      name: Node ${{ matrix.node }} sample
-      steps:
-        - uses: actions/checkout@v2
-        - name: Setup node
-          uses: actions/setup-node@v2
-          with:
-            node-version: ${{ matrix.node }}
-        - run: npm install
-        - run: npm test
+    container: cypress/browsers:node12.18.3-chrome87-ff82
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-        - name: Cypress run
-          uses: cypress-io/github-action@v2
-          with:
-            start: npm run test
-            config-file: src/test/e2e/cypress-smoke.json
-          env:
-            DEV_SERVER_PORT: 3001
+      - name: Save build folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          if-no-files-found: error
+          path: build
 
+      - name: Cypress install
+        uses: cypress-io/github-action@v2
+        with:
+          config-file: src/test/e2e/cypress-smoke.json
+          start: npm run test
