@@ -3,15 +3,24 @@ on: push
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          start: npm run test
-          config-file: src/test/e2e/cypress-smoke.json
-        env:
-          DEV_SERVER_PORT: 3001
+      strategy:
+        matrix:
+          node: [ '12', '14', '16' ]
+      name: Node ${{ matrix.node }} sample
+      steps:
+        - uses: actions/checkout@v2
+        - name: Setup node
+          uses: actions/setup-node@v2
+          with:
+            node-version: ${{ matrix.node }}
+        - run: npm install
+        - run: npm test
+
+        - name: Cypress run
+          uses: cypress-io/github-action@v2
+          with:
+            start: npm run test
+            config-file: src/test/e2e/cypress-smoke.json
+          env:
+            DEV_SERVER_PORT: 3001
+
