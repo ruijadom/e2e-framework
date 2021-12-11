@@ -12,5 +12,6 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           start: npm run test
+          config-file: test/e2e/cypress-smoke.json
         env:
           DEV_SERVER_PORT: 3001
